@@ -1,0 +1,21 @@
+# This file allows you to configure Airflow Connections, Pools, and Variables in a single place for local development only.
+# NOTE: json dicts can be added to the conn_extra field as yaml key value pairs. See the example below.
+
+# For more information, refer to our docs: https://www.astronomer.io/docs/astro/cli/develop-project#configure-airflow_settingsyaml-local-development-only
+# For questions, reach out to: https://support.astronomer.io
+# For issues create an issue ticket here: https://github.com/astronomer/astro-cli/issues
+
+airflow:
+  connections:
+    - conn_id: spark_default  # The connection ID you will use in your DAGs
+      conn_type: Spark  # Specifies this is a Spark connection
+      host: spark://spark-master  #spark://<spark master service name in docker-compose>
+      port: 7077  # The port Spark master is listening on (default is 7077)      
+
+  pools:
+    - pool_name: my_pool
+      pool_slot: 2
+      pool_description:
+  variables:
+    - variable_name: my_variable
+      variable_value: my_value

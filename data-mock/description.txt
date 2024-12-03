@@ -1,0 +1,2 @@
+This is path for mocking data in spark cluster
+(Using SparkFiles with parquet may cause some ERROR)
