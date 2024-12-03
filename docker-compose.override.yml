@@ -1,4 +1,5 @@
 version: "3.9"
+
 services:
   spark-master:
     build: ./spark
@@ -15,7 +16,7 @@ services:
       - ./spark/shard-spark-data:/tmp
       - ./data-mock:/data # Mock data path because some read SparkFiles function may cause an error
     networks:
-      - airflow-delta-etl_d1339b_airflow  # Connect to Airflow's network (docker network ls) to see networks from astro name because it's separate network from airflow
+      - airflow-network  # Connect to Airflow's network (docker network ls) to see networks from astro name because it's separate network from airflow
 
   spark-worker:
     build: ./spark
@@ -34,7 +35,7 @@ services:
       - ./spark/shard-spark-data:/tmp
       - ./data-mock:/data # Mock data path because some read Spark read function may cause an error
     networks:
-      - airflow-delta-etl_d1339b_airflow # default astro-airflow is in other network to list all network use command'docker network ls'
+      - airflow-network # default astro-airflow is in other network to list all network use command'docker network ls'
 
   spark-worker2:
     build: ./spark
@@ -53,11 +54,10 @@ services:
       - ./spark/shard-spark-data:/tmp
       - ./data-mock:/data # Mock data path because some read Spark read function may cause an error
     networks:
-      - airflow-delta-etl_d1339b_airflow  
+      - airflow-network 
 
   minio:
-    env_file:
-      - fileName=.env
+    env_file: .env
     image: minio/minio:latest 
     container_name: minio-bucket
     ports:
@@ -71,10 +71,10 @@ services:
     command: server --address ":9001" --console-address ":9000" /data
     restart: always
     networks:
-      - airflow-delta-etl_d1339b_airflow  
+      - airflow-network
 
 networks:
-  airflow-delta-etl_d1339b_airflow:
+  airflow-network:
     external: true  # Reference Airflow's existing network
-    name: airflow-delta-etl_d1339b_airflow
+    name: airflow-delta-etl_fcb87b_airflow # ID or name of external network
 

@@ -64,7 +64,12 @@ Then run the following command
 ```
 astro dev start
 ```
-This will start the following Airflow services as Docker containers:
+Find Airflow network astro default network by following command then set Airflow network in docker-compose.override.yml to make other component access by Airflow
+```
+docker network ls
+```
+
+Airflow services:
 - Postgres: Airflow’s metadata database.
 - Webserver: Renders the Airflow UI.
 - Scheduler: Monitors and triggers tasks.
